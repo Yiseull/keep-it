@@ -1,4 +1,4 @@
-package com.keepit.product.dto;
+package com.keepit.product.dto.response;
 
 import com.keepit.product.domain.Category;
 import com.keepit.product.domain.Product;
