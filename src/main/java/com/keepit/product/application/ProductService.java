@@ -15,7 +15,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public ProductResponse save(ProductCreateRequest request) {
+    public ProductResponse createProduct(ProductCreateRequest request) {
         Product product = toEntity(request);
         Product savedProduct = productRepository.save(product);
         return new ProductResponse(savedProduct);

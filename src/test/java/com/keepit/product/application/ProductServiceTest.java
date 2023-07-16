@@ -46,13 +46,13 @@ class ProductServiceTest {
 
     @Test
     @DisplayName("제품을 등록한다.")
-    void save() {
+    void createProduct() {
         // given
         given(productRepository.save(any(Product.class)))
                 .willReturn(product);
 
         // when
-        ProductResponse result = productService.save(request);
+        ProductResponse result = productService.createProduct(request);
 
         // then
         assertThat(result.getName()).isEqualTo(product.getName());
