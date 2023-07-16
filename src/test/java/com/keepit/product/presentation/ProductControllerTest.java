@@ -16,9 +16,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -71,5 +73,24 @@ class ProductControllerTest {
                 .andExpect(jsonPath("$.category").value(response.getCategory().toString()))
                 .andExpect(jsonPath("$.startDate").value(response.getStartDate().toString()))
                 .andExpect(jsonPath("$.expirationDate").value(response.getExpirationDate().toString()));
+    }
+
+    @Test
+    @DisplayName("제폼 목록 조회 API")
+    void getProducts() throws Exception {
+        // given
+        given(productService.getProducts())
+                .willReturn(List.of(response));
+
+        // when & then
+        this.mockMvc.perform(get("/api/v1/products"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.[0].id").value(response.getId()))
+                .andExpect(jsonPath("$.[0].name").value(response.getName()))
+                .andExpect(jsonPath("$.[0].category").value(response.getCategory().toString()))
+                .andExpect(jsonPath("$.[0].startDate").value(response.getStartDate().toString()))
+                .andExpect(jsonPath("$.[0].expirationDate").value(response.getExpirationDate().toString()));
     }
 }

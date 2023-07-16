@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -21,6 +24,11 @@ public class ProductService {
         return new ProductResponse(savedProduct);
     }
 
+    public List<ProductResponse> getProducts() {
+        List<Product> products = productRepository.findAll();
+        return toResponses(products);
+    }
+
     private static Product toEntity(ProductCreateRequest request) {
         return Product.builder()
                 .name(request.name())
@@ -28,5 +36,11 @@ public class ProductService {
                 .startDate(request.startDate())
                 .expirationDate(request.expirationDate())
                 .build();
+    }
+
+    private static List<ProductResponse> toResponses(List<Product> products) {
+        return products.stream()
+                .map(ProductResponse::new)
+                .collect(Collectors.toList());
     }
 }
