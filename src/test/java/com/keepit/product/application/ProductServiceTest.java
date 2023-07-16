@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -62,5 +63,22 @@ class ProductServiceTest {
 
         // verify
         verify(productRepository, times(1)).save(any(Product.class));
+    }
+
+    @Test
+    @DisplayName("제품을 모두 조회한다.")
+    void getProducts() {
+        // given
+        given(productRepository.findAll())
+                .willReturn(List.of(product));
+
+        // when
+        List<ProductResponse> result = productService.getProducts();
+
+        // then
+        assertThat(result.size()).isEqualTo(1);
+
+        // verify
+        verify(productRepository, times(1)).findAll();
     }
 }
