@@ -1,8 +1,8 @@
 package com.keepit.product.presentation;
 
 import com.keepit.product.application.ProductService;
-import com.keepit.product.dto.ProductCreateRequest;
-import com.keepit.product.dto.ProductResponse;
+import com.keepit.product.dto.request.ProductCreateRequest;
+import com.keepit.product.dto.response.ProductResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

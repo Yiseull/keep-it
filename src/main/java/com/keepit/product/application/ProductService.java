@@ -1,8 +1,8 @@
 package com.keepit.product.application;
 
 import com.keepit.product.domain.Product;
-import com.keepit.product.dto.ProductCreateRequest;
-import com.keepit.product.dto.ProductResponse;
+import com.keepit.product.dto.request.ProductCreateRequest;
+import com.keepit.product.dto.response.ProductResponse;
 import com.keepit.product.infrastructure.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
