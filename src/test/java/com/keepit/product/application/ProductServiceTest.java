@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,7 +37,10 @@ class ProductServiceTest {
 
     @BeforeEach
     void setUp() {
-        request = new ProductCreateRequest("제품1", Category.COSMETIC, LocalDateTime.now(), LocalDateTime.now());
+        request = new ProductCreateRequest("제품1",
+                Category.COSMETIC,
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         product = Product.builder()
                 .name(request.name())
                 .category(request.category())
