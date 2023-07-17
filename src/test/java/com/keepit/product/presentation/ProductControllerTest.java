@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -42,7 +43,10 @@ class ProductControllerTest {
 
     @BeforeEach
     void setUp() {
-        request = new ProductCreateRequest("제품1", Category.COSMETIC, LocalDateTime.now(), LocalDateTime.now());
+        request = new ProductCreateRequest("제품1",
+                Category.COSMETIC,
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         Product product = Product.builder()
                 .name(request.name())
                 .category(request.category())
@@ -71,8 +75,8 @@ class ProductControllerTest {
                 .andExpect(jsonPath("$.id").value(response.getId()))
                 .andExpect(jsonPath("$.name").value(response.getName()))
                 .andExpect(jsonPath("$.category").value(response.getCategory().toString()))
-                .andExpect(jsonPath("$.startDate").value(response.getStartDate().toString()))
-                .andExpect(jsonPath("$.expirationDate").value(response.getExpirationDate().toString()));
+                .andExpect(jsonPath("$.startDate").value(response.getStartDate()))
+                .andExpect(jsonPath("$.expirationDate").value(response.getExpirationDate()));
     }
 
     @Test
@@ -90,7 +94,7 @@ class ProductControllerTest {
                 .andExpect(jsonPath("$.[0].id").value(response.getId()))
                 .andExpect(jsonPath("$.[0].name").value(response.getName()))
                 .andExpect(jsonPath("$.[0].category").value(response.getCategory().toString()))
-                .andExpect(jsonPath("$.[0].startDate").value(response.getStartDate().toString()))
-                .andExpect(jsonPath("$.[0].expirationDate").value(response.getExpirationDate().toString()));
+                .andExpect(jsonPath("$.[0].startDate").value(response.getStartDate()))
+                .andExpect(jsonPath("$.[0].expirationDate").value(response.getExpirationDate()));
     }
 }

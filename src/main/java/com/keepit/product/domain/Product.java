@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Entity
@@ -18,11 +19,11 @@ public class Product {
     private long id;
     private String name;
     private Category category;
-    private LocalDateTime startDate;
-    private LocalDateTime expirationDate;
+    private String startDate;
+    private String expirationDate;
 
     @Builder
-    public Product(String name, Category category, LocalDateTime startDate, LocalDateTime expirationDate) {
+    public Product(String name, Category category, String startDate, String expirationDate) {
         this.name = name;
         this.category = category;
         this.startDate = startDate;
@@ -31,7 +32,7 @@ public class Product {
 
     @PrePersist
     public void prePersist(){
-        this.startDate = this.startDate == null ? LocalDateTime.now() : this.startDate;
-        this.expirationDate = this.expirationDate == null ? LocalDateTime.now() : this.expirationDate;
+        this.startDate = this.startDate == null ? LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) : this.startDate;
+        this.expirationDate = this.expirationDate == null ? LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) : this.expirationDate;
     }
 }
