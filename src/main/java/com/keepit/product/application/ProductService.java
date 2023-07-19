@@ -1,8 +1,10 @@
 package com.keepit.product.application;
 
+import com.keepit.global.error.exception.ErrorCode;
 import com.keepit.product.domain.Product;
 import com.keepit.product.dto.request.ProductCreateRequest;
 import com.keepit.product.dto.response.ProductResponse;
+import com.keepit.product.exception.ProductException;
 import com.keepit.product.infrastructure.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,7 +32,7 @@ public class ProductService {
 
     public ProductResponse getProduct(long productId) {
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("제품을 찾을 수 없습니다."));
+                .orElseThrow(() -> new ProductException(ErrorCode.PRODUCT_NOT_FOUND));
         return new ProductResponse(product);
     }
 }

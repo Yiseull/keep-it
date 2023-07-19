@@ -4,6 +4,7 @@ import com.keepit.product.domain.Category;
 import com.keepit.product.domain.Product;
 import com.keepit.product.dto.request.ProductCreateRequest;
 import com.keepit.product.dto.response.ProductResponse;
+import com.keepit.product.exception.ProductException;
 import com.keepit.product.infrastructure.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -122,8 +123,7 @@ class ProductServiceTest {
 
             // when & then
             assertThatThrownBy(() -> productService.getProduct(-1))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("제품을 찾을 수 없습니다.");
+                    .isInstanceOf(ProductException.class);
 
             // verify
             verify(productRepository, times(1)).findById(any(long.class));
