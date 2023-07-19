@@ -29,6 +29,12 @@ public class ProductService {
         return toResponses(products);
     }
 
+    public ProductResponse getProduct(long productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("제품을 찾을 수 없습니다."));
+        return new ProductResponse(product);
+    }
+
     private static Product toEntity(ProductCreateRequest request) {
         return Product.builder()
                 .name(request.name())
