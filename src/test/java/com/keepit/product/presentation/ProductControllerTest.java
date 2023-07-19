@@ -5,7 +5,7 @@ import com.keepit.global.error.exception.ErrorCode;
 import com.keepit.product.application.ProductService;
 import com.keepit.product.domain.Category;
 import com.keepit.product.domain.Product;
-import com.keepit.product.dto.request.ProductCreateRequest;
+import com.keepit.product.dto.request.ProductRequest;
 import com.keepit.product.dto.response.ProductResponse;
 import com.keepit.product.exception.ProductException;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,12 +40,12 @@ class ProductControllerTest {
     @MockBean
     private ProductService productService;
 
-    private ProductCreateRequest request;
+    private ProductRequest request;
     private ProductResponse response;
 
     @BeforeEach
     void setUp() {
-        request = new ProductCreateRequest("product-1",
+        request = new ProductRequest("product-1",
                 Category.COSMETIC,
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
@@ -62,7 +62,7 @@ class ProductControllerTest {
     @DisplayName("제품 등록 API")
     void createProduct() throws Exception {
         // given
-        given(productService.createProduct(any(ProductCreateRequest.class)))
+        given(productService.createProduct(any(ProductRequest.class)))
                 .willReturn(response);
 
         String requestJson = objectMapper.writeValueAsString(request);

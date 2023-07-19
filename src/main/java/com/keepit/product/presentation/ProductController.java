@@ -1,7 +1,7 @@
 package com.keepit.product.presentation;
 
 import com.keepit.product.application.ProductService;
-import com.keepit.product.dto.request.ProductCreateRequest;
+import com.keepit.product.dto.request.ProductRequest;
 import com.keepit.product.dto.response.ProductResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductCreateRequest request) {
+    public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductRequest request) {
         log.info("{}", request);
         ProductResponse response = productService.createProduct(request);
         return ResponseEntity.ok(response);
