@@ -1,11 +1,13 @@
 package com.keepit.product.presentation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.keepit.global.error.exception.ErrorCode;
 import com.keepit.product.application.ProductService;
 import com.keepit.product.domain.Category;
 import com.keepit.product.domain.Product;
 import com.keepit.product.dto.request.ProductCreateRequest;
 import com.keepit.product.dto.response.ProductResponse;
+import com.keepit.product.exception.ProductException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -24,8 +26,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ProductController.class)
 class ProductControllerTest {
@@ -114,12 +115,17 @@ class ProductControllerTest {
         @DisplayName("실패")
         void fail() throws Exception {
             // given
+            ErrorCode errorCode = ErrorCode.PRODUCT_NOT_FOUND;
+
             given(productService.getProduct(any(long.class)))
-                    .willThrow(new IllegalArgumentException("제품을 찾을 수 없습니다."));
+                    .willThrow(new ProductException(errorCode));
 
             // when & then
             mockMvc.perform(get("/api/v1/products/{productId}", 1))
-                    .andExpect(status().isInternalServerError());
+                    .andExpect(status().isNotFound())
+                    .andExpect(jsonPath("error").value(errorCode.name()))
+                    .andExpect(jsonPath("code").value(errorCode.getCode()))
+                    .andExpect(jsonPath("message").value(errorCode.getMessage()));
         }
     }
 }
