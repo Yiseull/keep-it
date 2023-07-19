@@ -8,6 +8,7 @@ import com.keepit.product.dto.request.ProductCreateRequest;
 import com.keepit.product.dto.response.ProductResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -96,5 +97,40 @@ class ProductControllerTest {
                 .andExpect(jsonPath("$.[0].category").value(response.getCategory().toString()))
                 .andExpect(jsonPath("$.[0].startDate").value(response.getStartDate()))
                 .andExpect(jsonPath("$.[0].expirationDate").value(response.getExpirationDate()));
+    }
+
+    @Nested
+    @DisplayName("제품 아이디로 조회 API")
+    class getProduct {
+
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            // given
+            given(productService.getProduct(any(long.class)))
+                    .willReturn(response);
+
+            // when & then
+            mockMvc.perform(get("/api/v1/products/{productId}", 1))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.id").value(response.getId()))
+                    .andExpect(jsonPath("$.name").value(response.getName()))
+                    .andExpect(jsonPath("$.category").value(response.getCategory().toString()))
+                    .andExpect(jsonPath("$.startDate").value(response.getStartDate()))
+                    .andExpect(jsonPath("$.expirationDate").value(response.getExpirationDate()));
+        }
+
+        @Test
+        @DisplayName("실패")
+        void fail() throws Exception {
+            // given
+            given(productService.getProduct(any(long.class)))
+                    .willThrow(new IllegalArgumentException("제품을 찾을 수 없습니다."));
+
+            // when & then
+            mockMvc.perform(get("/api/v1/products/{productId}", 1))
+                    .andExpect(status().isInternalServerError());
+        }
     }
 }
