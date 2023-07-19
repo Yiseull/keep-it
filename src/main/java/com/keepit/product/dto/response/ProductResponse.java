@@ -4,6 +4,9 @@ import com.keepit.product.domain.Category;
 import com.keepit.product.domain.Product;
 import lombok.Getter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 public class ProductResponse {
 
@@ -19,5 +22,11 @@ public class ProductResponse {
         this.category = product.getCategory();
         this.startDate = product.getStartDate();
         this.expirationDate = product.getExpirationDate();
+    }
+
+    public static List<ProductResponse> toResponses(List<Product> products) {
+        return products.stream()
+                .map(ProductResponse::new)
+                .collect(Collectors.toList());
     }
 }
