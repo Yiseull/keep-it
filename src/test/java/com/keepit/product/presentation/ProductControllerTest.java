@@ -24,8 +24,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ProductController.class)
 class ProductControllerTest {
@@ -44,7 +44,7 @@ class ProductControllerTest {
 
     @BeforeEach
     void setUp() {
-        request = new ProductCreateRequest("제품1",
+        request = new ProductCreateRequest("product-1",
                 Category.COSMETIC,
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
@@ -65,38 +65,30 @@ class ProductControllerTest {
                 .willReturn(response);
 
         String requestJson = objectMapper.writeValueAsString(request);
+        String responseJson = objectMapper.writeValueAsString(response);
 
         // when & then
         this.mockMvc.perform(post("/api/v1/products")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
-                .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(response.getId()))
-                .andExpect(jsonPath("$.name").value(response.getName()))
-                .andExpect(jsonPath("$.category").value(response.getCategory().toString()))
-                .andExpect(jsonPath("$.startDate").value(response.getStartDate()))
-                .andExpect(jsonPath("$.expirationDate").value(response.getExpirationDate()));
+                .andExpect(content().string(responseJson));
     }
 
     @Test
     @DisplayName("제폼 목록 조회 API")
     void getProducts() throws Exception {
         // given
+        List<ProductResponse> responses = List.of(response);
         given(productService.getProducts())
-                .willReturn(List.of(response));
+                .willReturn(responses);
+
+        String responsesJson = objectMapper.writeValueAsString(responses);
 
         // when & then
         this.mockMvc.perform(get("/api/v1/products"))
-                .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].id").value(response.getId()))
-                .andExpect(jsonPath("$.[0].name").value(response.getName()))
-                .andExpect(jsonPath("$.[0].category").value(response.getCategory().toString()))
-                .andExpect(jsonPath("$.[0].startDate").value(response.getStartDate()))
-                .andExpect(jsonPath("$.[0].expirationDate").value(response.getExpirationDate()));
+                .andExpect(content().string(responsesJson));
     }
 
     @Nested
@@ -110,15 +102,12 @@ class ProductControllerTest {
             given(productService.getProduct(any(long.class)))
                     .willReturn(response);
 
+            String responseJson = objectMapper.writeValueAsString(response);
+
             // when & then
             mockMvc.perform(get("/api/v1/products/{productId}", 1))
                     .andExpect(status().isOk())
-                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(jsonPath("$.id").value(response.getId()))
-                    .andExpect(jsonPath("$.name").value(response.getName()))
-                    .andExpect(jsonPath("$.category").value(response.getCategory().toString()))
-                    .andExpect(jsonPath("$.startDate").value(response.getStartDate()))
-                    .andExpect(jsonPath("$.expirationDate").value(response.getExpirationDate()));
+                    .andExpect(content().string(responseJson));
         }
 
         @Test
