@@ -35,4 +35,11 @@ public class ProductService {
                 .orElseThrow(() -> new ProductException(ErrorCode.PRODUCT_NOT_FOUND));
         return new ProductResponse(product);
     }
+
+    public void updateProduct(long productId, ProductRequest request) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new ProductException(ErrorCode.PRODUCT_NOT_FOUND));
+        product.update(request.name(), request.category(), request.startDate(), request.expirationDate());
+        productRepository.save(product);
+    }
 }
