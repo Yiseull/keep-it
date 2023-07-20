@@ -13,12 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ProductService {
 
     private final ProductRepository productRepository;
 
+    @Transactional
     public ProductResponse createProduct(ProductRequest request) {
         Product product = request.toEntity();
         Product savedProduct = productRepository.save(product);
@@ -36,6 +37,7 @@ public class ProductService {
         return new ProductResponse(product);
     }
 
+    @Transactional
     public void updateProduct(long productId, ProductRequest request) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ProductException(ErrorCode.PRODUCT_NOT_FOUND));
