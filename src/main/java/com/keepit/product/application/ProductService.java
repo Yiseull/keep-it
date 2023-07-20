@@ -42,7 +42,6 @@ public class ProductService {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ProductException(ErrorCode.PRODUCT_NOT_FOUND));
         product.update(request.name(), request.category(), request.startDate(), request.expirationDate());
-        productRepository.save(product);
     }
 
     @Transactional
