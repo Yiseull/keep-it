@@ -44,4 +44,12 @@ public class ProductService {
         product.update(request.name(), request.category(), request.startDate(), request.expirationDate());
         productRepository.save(product);
     }
+
+    @Transactional
+    public void deleteProduct(long productId) {
+        if (!productRepository.existsById(productId)) {
+            throw new ProductException(ErrorCode.PRODUCT_NOT_FOUND);
+        }
+        productRepository.deleteById(productId);
+    }
 }
