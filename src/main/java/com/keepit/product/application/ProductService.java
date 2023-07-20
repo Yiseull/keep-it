@@ -13,12 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ProductService {
 
     private final ProductRepository productRepository;
 
+    @Transactional
     public ProductResponse createProduct(ProductRequest request) {
         Product product = request.toEntity();
         Product savedProduct = productRepository.save(product);
@@ -36,10 +37,19 @@ public class ProductService {
         return new ProductResponse(product);
     }
 
+    @Transactional
     public void updateProduct(long productId, ProductRequest request) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ProductException(ErrorCode.PRODUCT_NOT_FOUND));
         product.update(request.name(), request.category(), request.startDate(), request.expirationDate());
         productRepository.save(product);
+    }
+
+    @Transactional
+    public void deleteProduct(long productId) {
+        if (!productRepository.existsById(productId)) {
+            throw new ProductException(ErrorCode.PRODUCT_NOT_FOUND);
+        }
+        productRepository.deleteById(productId);
     }
 }
