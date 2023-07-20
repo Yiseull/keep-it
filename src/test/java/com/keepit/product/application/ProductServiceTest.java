@@ -2,7 +2,7 @@ package com.keepit.product.application;
 
 import com.keepit.product.domain.Category;
 import com.keepit.product.domain.Product;
-import com.keepit.product.dto.request.ProductCreateRequest;
+import com.keepit.product.dto.request.ProductRequest;
 import com.keepit.product.dto.response.ProductResponse;
 import com.keepit.product.exception.ProductException;
 import com.keepit.product.infrastructure.ProductRepository;
@@ -36,12 +36,12 @@ class ProductServiceTest {
     @Mock
     private ProductRepository productRepository;
 
-    private ProductCreateRequest request;
+    private ProductRequest request;
     private Product product;
 
     @BeforeEach
     void setUp() {
-        request = new ProductCreateRequest("제품1",
+        request = new ProductRequest("제품1",
                 Category.COSMETIC,
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));

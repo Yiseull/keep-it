@@ -3,7 +3,7 @@ package com.keepit.product.dto.request;
 import com.keepit.product.domain.Category;
 import com.keepit.product.domain.Product;
 
-public record ProductCreateRequest(
+public record ProductRequest(
         String name,
         Category category,
         String startDate,
