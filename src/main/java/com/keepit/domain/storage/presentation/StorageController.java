@@ -6,10 +6,9 @@ import com.keepit.domain.storage.dto.response.StorageResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -24,5 +23,33 @@ public class StorageController {
         log.info("request={}", request);
         StorageResponse response = storageService.createStorage(request);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<StorageResponse>> getStorages() {
+        List<StorageResponse> responses = storageService.getStorages();
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/{storageId}")
+    public ResponseEntity<StorageResponse> getStorage(@PathVariable long storageId) {
+        log.info("storageId={}", storageId);
+        StorageResponse response = storageService.getStorage(storageId);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/{storageId}")
+    public ResponseEntity<Void> updateStorage(@PathVariable long storageId,
+                                              @RequestBody StorageRequest request) {
+        log.info("storageId={}, request={}", storageId, request);
+        storageService.updateStorage(storageId, request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{storageId}")
+    public ResponseEntity<Void> deleteStorage(@PathVariable long storageId) {
+        log.info("storageId={}", storageId);
+        storageService.deleteStorage(storageId);
+        return ResponseEntity.noContent().build();
     }
 }
