@@ -1,5 +1,6 @@
 package com.keepit.product.domain;
 
+import com.keepit.global.storage.domain.Storage;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -21,6 +22,10 @@ public class Product {
     private Category category;
     private String startDate;
     private String expirationDate;
+
+    @ManyToOne
+    @JoinColumn(name = "storage_id")
+    private Storage storage;
 
     @Builder
     public Product(String name, Category category, String startDate, String expirationDate) {
