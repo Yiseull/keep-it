@@ -1,4 +1,4 @@
-package com.keepit.global.storage.domain;
+package com.keepit.storage.domain;
 
 import com.keepit.product.domain.Product;
 import jakarta.persistence.*;

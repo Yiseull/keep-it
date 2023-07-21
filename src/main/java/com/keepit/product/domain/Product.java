@@ -1,6 +1,6 @@
 package com.keepit.product.domain;
 
-import com.keepit.global.storage.domain.Storage;
+import com.keepit.storage.domain.Storage;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

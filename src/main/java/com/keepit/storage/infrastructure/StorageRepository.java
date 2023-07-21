@@ -1,6 +1,6 @@
-package com.keepit.global.storage.infrastructure;
+package com.keepit.storage.infrastructure;
 
-import com.keepit.global.storage.domain.Storage;
+import com.keepit.storage.domain.Storage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
