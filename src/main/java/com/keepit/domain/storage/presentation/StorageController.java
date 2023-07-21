@@ -37,4 +37,12 @@ public class StorageController {
         StorageResponse response = storageService.getStorage(storageId);
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/{storageId}")
+    public ResponseEntity<Void> updateStorage(@PathVariable long storageId,
+                                              @RequestBody StorageRequest request) {
+        log.info("storageId={}, request={}", storageId, request);
+        storageService.updateStorage(storageId, request);
+        return ResponseEntity.noContent().build();
+    }
 }

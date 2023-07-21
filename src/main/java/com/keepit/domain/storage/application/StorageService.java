@@ -36,4 +36,11 @@ public class StorageService {
                 .orElseThrow(() -> new StorageException(ErrorCode.STORAGE_NOT_FOUND));
         return new StorageResponse(storage);
     }
+
+    @Transactional
+    public void updateStorage(long storageId, StorageRequest request) {
+        Storage storage = storageRepository.findById(storageId)
+                .orElseThrow(() -> new StorageException(ErrorCode.STORAGE_NOT_FOUND));
+        storage.updateName(request.name());
+    }
 }
