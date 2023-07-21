@@ -45,4 +45,11 @@ public class StorageController {
         storageService.updateStorage(storageId, request);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/{storageId}")
+    public ResponseEntity<Void> deleteStorage(@PathVariable long storageId) {
+        log.info("storageId={}", storageId);
+        storageService.deleteStorage(storageId);
+        return ResponseEntity.noContent().build();
+    }
 }

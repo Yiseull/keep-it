@@ -43,4 +43,12 @@ public class StorageService {
                 .orElseThrow(() -> new StorageException(ErrorCode.STORAGE_NOT_FOUND));
         storage.updateName(request.name());
     }
+
+    @Transactional
+    public void deleteStorage(long storageId) {
+        if (!storageRepository.existsById(storageId)) {
+            throw new StorageException(ErrorCode.STORAGE_NOT_FOUND);
+        }
+        storageRepository.deleteById(storageId);
+    }
 }
