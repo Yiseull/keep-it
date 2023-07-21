@@ -1,7 +1,7 @@
-package com.keepit.product.dto.response;
+package com.keepit.domain.product.dto.response;
 
-import com.keepit.product.domain.Category;
-import com.keepit.product.domain.Product;
+import com.keepit.domain.product.domain.Category;
+import com.keepit.domain.product.domain.Product;
 import lombok.Getter;
 
 import java.util.List;

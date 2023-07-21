@@ -1,4 +1,4 @@
-package com.keepit.storage.dto.request;
+package com.keepit.domain.storage.dto.request;
 
 public record StorageRequest(String name) {
 }
