@@ -1,11 +1,11 @@
-package com.keepit.product.application;
+package com.keepit.domain.product.application;
 
 import com.keepit.global.error.exception.ErrorCode;
-import com.keepit.product.domain.Product;
-import com.keepit.product.dto.request.ProductRequest;
-import com.keepit.product.dto.response.ProductResponse;
-import com.keepit.product.exception.ProductException;
-import com.keepit.product.infrastructure.ProductRepository;
+import com.keepit.domain.product.domain.Product;
+import com.keepit.domain.product.dto.request.ProductRequest;
+import com.keepit.domain.product.dto.response.ProductResponse;
+import com.keepit.domain.product.exception.ProductException;
+import com.keepit.domain.product.infrastructure.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

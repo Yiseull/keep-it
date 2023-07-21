@@ -1,6 +1,6 @@
-package com.keepit.storage.dto.response;
+package com.keepit.domain.storage.dto.response;
 
-import com.keepit.storage.domain.Storage;
+import com.keepit.domain.storage.domain.Storage;
 import lombok.Getter;
 
 @Getter

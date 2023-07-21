@@ -1,8 +1,8 @@
-package com.keepit.storage.presentation;
+package com.keepit.domain.storage.presentation;
 
-import com.keepit.storage.application.StorageService;
-import com.keepit.storage.dto.request.StorageRequest;
-import com.keepit.storage.dto.response.StorageResponse;
+import com.keepit.domain.storage.application.StorageService;
+import com.keepit.domain.storage.dto.request.StorageRequest;
+import com.keepit.domain.storage.dto.response.StorageResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package com.keepit.global.error;
 
 import com.keepit.global.error.exception.ErrorCode;
-import com.keepit.product.exception.ProductException;
+import com.keepit.domain.product.exception.ProductException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

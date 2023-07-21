@@ -1,4 +1,4 @@
-package com.keepit.product.domain;
+package com.keepit.domain.product.domain;
 
 public enum Category {
     FOOD,

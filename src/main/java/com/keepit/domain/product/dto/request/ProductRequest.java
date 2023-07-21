@@ -1,7 +1,7 @@
-package com.keepit.product.dto.request;
+package com.keepit.domain.product.dto.request;
 
-import com.keepit.product.domain.Category;
-import com.keepit.product.domain.Product;
+import com.keepit.domain.product.domain.Category;
+import com.keepit.domain.product.domain.Product;
 
 public record ProductRequest(
         String name,

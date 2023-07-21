@@ -1,4 +1,4 @@
-package com.keepit.product.exception;
+package com.keepit.domain.product.exception;
 
 import com.keepit.global.error.exception.BaseException;
 import com.keepit.global.error.exception.ErrorCode;

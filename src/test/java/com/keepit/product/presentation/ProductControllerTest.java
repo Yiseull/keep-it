@@ -1,13 +1,14 @@
 package com.keepit.product.presentation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.keepit.domain.product.presentation.ProductController;
 import com.keepit.global.error.exception.ErrorCode;
-import com.keepit.product.application.ProductService;
-import com.keepit.product.domain.Category;
-import com.keepit.product.domain.Product;
-import com.keepit.product.dto.request.ProductRequest;
-import com.keepit.product.dto.response.ProductResponse;
-import com.keepit.product.exception.ProductException;
+import com.keepit.domain.product.application.ProductService;
+import com.keepit.domain.product.domain.Category;
+import com.keepit.domain.product.domain.Product;
+import com.keepit.domain.product.dto.request.ProductRequest;
+import com.keepit.domain.product.dto.response.ProductResponse;
+import com.keepit.domain.product.exception.ProductException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

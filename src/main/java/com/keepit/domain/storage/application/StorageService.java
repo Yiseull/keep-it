@@ -1,9 +1,9 @@
-package com.keepit.storage.application;
+package com.keepit.domain.storage.application;
 
-import com.keepit.storage.domain.Storage;
-import com.keepit.storage.dto.request.StorageRequest;
-import com.keepit.storage.dto.response.StorageResponse;
-import com.keepit.storage.infrastructure.StorageRepository;
+import com.keepit.domain.storage.infrastructure.StorageRepository;
+import com.keepit.domain.storage.domain.Storage;
+import com.keepit.domain.storage.dto.request.StorageRequest;
+import com.keepit.domain.storage.dto.response.StorageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
