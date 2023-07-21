@@ -2,6 +2,7 @@ package com.keepit.storage.domain;
 
 import com.keepit.product.domain.Product;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Storage {
 
     @Id
