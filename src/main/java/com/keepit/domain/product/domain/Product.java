@@ -41,7 +41,7 @@ public class Product {
         this.expirationDate = this.expirationDate == null ? LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) : this.expirationDate;
     }
 
-    public void update(String name, Category category, String startDate, String expirationDate) {
+    public void updateInfo(String name, Category category, String startDate, String expirationDate) {
         this.name = name;
         this.category = category;
         this.startDate = startDate;
