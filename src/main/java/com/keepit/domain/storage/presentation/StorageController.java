@@ -39,7 +39,7 @@ public class StorageController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/{storageId}")
+    @PutMapping("/{storageId}")
     public ResponseEntity<Void> updateStorage(@PathVariable long storageId,
                                               @RequestBody StorageRequest request) {
         log.info("storageId={}, request={}", storageId, request);
@@ -54,7 +54,7 @@ public class StorageController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{storageId}/products")
+    @PostMapping("/{storageId}")
     public ResponseEntity<Void> addProducts(@PathVariable long storageId,
                                             @RequestBody List<ProductIdRequest> requests) {
         log.info("storageId={}, requests={}", storageId, requests);

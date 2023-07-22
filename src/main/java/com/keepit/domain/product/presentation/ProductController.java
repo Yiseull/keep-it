@@ -38,7 +38,7 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/{productId}")
+    @PutMapping("/{productId}")
     public ResponseEntity<Void> updateProduct(@PathVariable long productId,
                                               @RequestBody ProductRequest request) {
         log.info("productId={}, request={}", productId, request);
