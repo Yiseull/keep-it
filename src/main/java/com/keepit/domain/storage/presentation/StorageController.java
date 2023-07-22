@@ -1,7 +1,7 @@
 package com.keepit.domain.storage.presentation;
 
 import com.keepit.domain.storage.application.StorageService;
-import com.keepit.domain.storage.dto.request.StorageProductIdRequest;
+import com.keepit.domain.storage.dto.request.ProductIdRequest;
 import com.keepit.domain.storage.dto.request.StorageRequest;
 import com.keepit.domain.storage.dto.response.StorageResponse;
 import lombok.RequiredArgsConstructor;
@@ -56,7 +56,7 @@ public class StorageController {
 
     @PostMapping("/{storageId}/products")
     public ResponseEntity<Void> addProducts(@PathVariable long storageId,
-                                            @RequestBody List<StorageProductIdRequest> requests) {
+                                            @RequestBody List<ProductIdRequest> requests) {
         log.info("storageId={}, requests={}", storageId, requests);
         storageService.addProducts(storageId, requests);
         return ResponseEntity.noContent().build();

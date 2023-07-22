@@ -4,7 +4,7 @@ import com.keepit.domain.product.domain.Product;
 import com.keepit.domain.product.exception.ProductException;
 import com.keepit.domain.product.infrastructure.ProductRepository;
 import com.keepit.domain.storage.domain.Storage;
-import com.keepit.domain.storage.dto.request.StorageProductIdRequest;
+import com.keepit.domain.storage.dto.request.ProductIdRequest;
 import com.keepit.domain.storage.dto.request.StorageRequest;
 import com.keepit.domain.storage.dto.response.StorageResponse;
 import com.keepit.domain.storage.exception.StorageException;
@@ -58,16 +58,16 @@ public class StorageService {
     }
 
     @Transactional
-    public void addProducts(long storageId, List<StorageProductIdRequest> requests) {
+    public void addProducts(long storageId, List<ProductIdRequest> requests) {
         Storage storage = storageRepository.findById(storageId)
                 .orElseThrow(() -> new StorageException(ErrorCode.STORAGE_NOT_FOUND));
         List<Product> products = getProducts(requests, storage);
         storage.addProducts(products);
     }
 
-    private List<Product> getProducts(List<StorageProductIdRequest> requests, Storage storage) {
+    private List<Product> getProducts(List<ProductIdRequest> requests, Storage storage) {
         List<Long> productIds = requests.stream()
-                .map(StorageProductIdRequest::productId)
+                .map(ProductIdRequest::productId)
                 .toList();
         List<Product> products = productRepository.findAllById(productIds);
         if (products.size() != productIds.size()) {
