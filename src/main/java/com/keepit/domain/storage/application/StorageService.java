@@ -26,7 +26,9 @@ public class StorageService {
 
     @Transactional
     public StorageResponse createStorage(StorageRequest request) {
-        Storage storage = new Storage(request.name());
+        Storage storage = Storage.builder()
+                .name(request.name())
+                .build();
         Storage savedStorage = storageRepository.save(storage);
         return new StorageResponse(savedStorage);
     }

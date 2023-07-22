@@ -3,6 +3,7 @@ package com.keepit.domain.storage.domain;
 import com.keepit.domain.product.domain.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,7 +23,8 @@ public class Storage {
     @OneToMany(mappedBy = "storage")
     private List<Product> products = new ArrayList<>();
 
-    public Storage(String name) {
+    @Builder
+    private Storage(String name) {
         this.name = name;
     }
 

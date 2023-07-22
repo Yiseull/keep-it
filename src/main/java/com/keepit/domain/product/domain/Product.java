@@ -28,7 +28,7 @@ public class Product {
     private Storage storage;
 
     @Builder
-    public Product(String name, Category category, String startDate, String expirationDate) {
+    private Product(String name, Category category, String startDate, String expirationDate) {
         this.name = name;
         this.category = category;
         this.startDate = startDate;
