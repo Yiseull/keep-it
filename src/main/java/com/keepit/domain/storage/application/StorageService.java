@@ -1,6 +1,10 @@
 package com.keepit.domain.storage.application;
 
+import com.keepit.domain.product.domain.Product;
+import com.keepit.domain.product.exception.ProductException;
+import com.keepit.domain.product.infrastructure.ProductRepository;
 import com.keepit.domain.storage.domain.Storage;
+import com.keepit.domain.storage.dto.request.StorageProductIdRequest;
 import com.keepit.domain.storage.dto.request.StorageRequest;
 import com.keepit.domain.storage.dto.response.StorageResponse;
 import com.keepit.domain.storage.exception.StorageException;
@@ -18,6 +22,7 @@ import java.util.List;
 public class StorageService {
 
     private final StorageRepository storageRepository;
+    private final ProductRepository productRepository;
 
     @Transactional
     public StorageResponse createStorage(StorageRequest request) {
@@ -50,5 +55,30 @@ public class StorageService {
             throw new StorageException(ErrorCode.STORAGE_NOT_FOUND);
         }
         storageRepository.deleteById(storageId);
+    }
+
+    @Transactional
+    public void addProducts(long storageId, List<StorageProductIdRequest> requests) {
+        Storage storage = storageRepository.findById(storageId)
+                .orElseThrow(() -> new StorageException(ErrorCode.STORAGE_NOT_FOUND));
+        List<Product> products = getProducts(requests, storage);
+        storage.addProducts(products);
+    }
+
+    private List<Product> getProducts(List<StorageProductIdRequest> requests, Storage storage) {
+        List<Long> productIds = requests.stream()
+                .map(StorageProductIdRequest::productId)
+                .toList();
+        List<Product> products = productRepository.findAllById(productIds);
+        if (products.size() != productIds.size()) {
+            throw new ProductException(ErrorCode.PRODUCT_NOT_FOUND);
+        }
+        return isAddedToStorage(storage, products);
+    }
+
+    private List<Product> isAddedToStorage(Storage storage, List<Product> products) {
+        return products.stream()
+                .map(product -> product.isAddedToStorage(storage))
+                .toList();
     }
 }

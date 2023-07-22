@@ -47,4 +47,9 @@ public class Product {
         this.startDate = startDate;
         this.expirationDate = expirationDate;
     }
+
+    public Product isAddedToStorage(Storage storage) {
+        this.storage = storage;
+        return this;
+    }
 }
