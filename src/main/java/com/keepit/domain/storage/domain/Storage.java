@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -19,7 +20,7 @@ public class Storage {
     private String name;
 
     @OneToMany(mappedBy = "storage")
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
     public Storage(String name) {
         this.name = name;
@@ -27,5 +28,9 @@ public class Storage {
 
     public void updateName(String name) {
         this.name = name;
+    }
+
+    public void addProducts(List<Product> products) {
+        this.products.addAll(products);
     }
 }

@@ -5,7 +5,6 @@ import com.keepit.domain.product.domain.Product;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 public class ProductResponse {
@@ -27,6 +26,6 @@ public class ProductResponse {
     public static List<ProductResponse> toResponses(List<Product> products) {
         return products.stream()
                 .map(ProductResponse::new)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
