@@ -4,7 +4,6 @@ import com.keepit.domain.storage.domain.Storage;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 public class StorageResponse {
@@ -20,6 +19,6 @@ public class StorageResponse {
     public static List<StorageResponse> toResponses(List<Storage> storages) {
         return storages.stream()
                 .map(StorageResponse::new)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
