@@ -18,9 +18,17 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(nullable = false, length = 20)
     private String name;
+
+    @Enumerated(EnumType.STRING)
     private Category category;
+
+    @Column(nullable = false)
     private String startDate;
+
+    @Column(nullable = false)
     private String expirationDate;
 
     @ManyToOne
