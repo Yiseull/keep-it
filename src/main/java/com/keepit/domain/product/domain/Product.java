@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 @Getter
 @Entity
@@ -31,7 +32,7 @@ public class Product {
     @Column(nullable = false)
     private String expirationDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "storage_id")
     private Storage storage;
 
@@ -56,8 +57,12 @@ public class Product {
         this.expirationDate = expirationDate;
     }
 
-    public Product isAddedToStorage(Storage storage) {
+    public void addToStorage(Storage storage) {
+        if (Objects.nonNull(this.storage)) {
+            this.storage.getProducts().remove(this);
+        }
+
         this.storage = storage;
-        return this;
+        storage.getProducts().add(this);
     }
 }

@@ -63,24 +63,21 @@ public class StorageService {
     public void addProducts(long storageId, List<ProductIdRequest> requests) {
         Storage storage = storageRepository.findById(storageId)
                 .orElseThrow(() -> new StorageException(ErrorCode.STORAGE_NOT_FOUND));
-        List<Product> products = getProducts(requests, storage);
-        storage.addProducts(products);
+
+        List<Product> products = getProducts(requests);
+        products.forEach(storage::addProduct);
     }
 
-    private List<Product> getProducts(List<ProductIdRequest> requests, Storage storage) {
+    private List<Product> getProducts(List<ProductIdRequest> requests) {
         List<Long> productIds = requests.stream()
                 .map(ProductIdRequest::productId)
                 .toList();
+
         List<Product> products = productRepository.findAllById(productIds);
         if (products.size() != productIds.size()) {
             throw new ProductException(ErrorCode.PRODUCT_NOT_FOUND);
         }
-        return isAddedToStorage(storage, products);
-    }
 
-    private List<Product> isAddedToStorage(Storage storage, List<Product> products) {
-        return products.stream()
-                .map(product -> product.isAddedToStorage(storage))
-                .toList();
+        return products;
     }
 }

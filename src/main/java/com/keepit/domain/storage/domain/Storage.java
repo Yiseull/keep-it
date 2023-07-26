@@ -19,10 +19,10 @@ public class Storage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private String name;
 
-    @OneToMany(mappedBy = "storage")
+    @OneToMany(mappedBy = "storage", fetch = FetchType.LAZY)
     private List<Product> products = new ArrayList<>();
 
     @Builder
@@ -34,7 +34,7 @@ public class Storage {
         this.name = name;
     }
 
-    public void addProducts(List<Product> products) {
-        this.products.addAll(products);
+    public void addProduct(Product product) {
+        product.addToStorage(this);
     }
 }
